@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Details</title>
+	<link rel="stylesheet" type="text/css" media="screen" href="popup.css">
+</head>
+
+<body>
+<div class="grid-container">
+
+	<div id="check-module-config" class="hidden-field alert alert-warning">
+		__MSG_CheckYourModuleConfig__
+	</div>
+
+	<div id="main-popup" class="hidden-field">
+
+		<table class="dolibarr-table" >
+			<tr>
+				<td ><h4 id="popup-header"><div class="text-placeholder --medium">&nbsp;</div></h4></td>
+				<td style="text-align: right;" >
+					<a id="soc-link" class="hidden-field btn btn-primary" href="">__MSG_FicheDolibarr__</a>
+				</td>
+			</tr>
+		</table>
+
+		<div id="soc-infos">
+			<div id="soc-not-found-tpl" class="hidden-field" >
+				<hr/>
+				<div class="row" >
+					<a id="new-soc-link" class="btn btn-primary" href="" ><i class="icon-plus"></i> __MSG_CreateNewCompany__</a>
+					<a id="new-contact-link"  class="btn btn-primary" href=""><i class="icon-user-plus"></i> __MSG_CreateNewContact__</a>
+				</div>
+			</div>
+		</div>
+
+		<table id="data-from-dolibarr" class="dolibarr-table dolibarr-table-stripped"></table>
+
+	</div>
+</div>
+
+<script type="module" src="popup.js"></script>
+</body>
+
+</html>

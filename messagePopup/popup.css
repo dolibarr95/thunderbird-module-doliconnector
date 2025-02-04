@@ -1,0 +1,13 @@
+@import "../global.css";
+
+
+.grid-container{
+	min-width: 500px;
+}
+
+#popup-header{
+	font-size: 16px;
+	color: #3c4043;
+	font-weight: 300;
+
+}
