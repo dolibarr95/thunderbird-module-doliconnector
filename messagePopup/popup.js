@@ -44,15 +44,27 @@ import {searchPhonesInString} from "../global.lib.js";
         }, 'GET', {}, (resData)=>{
 
             resData = resData.pop();
-            // Populate company data
-            setSocInfos({
-                id: resData.socid,
-                name: resData.socname
-            });
+          
 
-            loadDocumentsInfos({
-                socId : resData.socid
-            })
+            if(parseInt(resData.socid) > 0){
+
+                // Populate company data
+                setSocInfos({
+                    id: resData.socid,
+                    name: resData.socname
+                });
+
+                loadDocumentsInfos({
+                    socId : resData.socid
+                })
+
+            }else{
+                setSocInfos({
+                    id: 0, // In this case contact is probaly not attached to soc
+                    name: 'Contact found but not attached to company'
+                })
+            }
+            
 
         },(errorMsg)=>{
             console.log("contacts not found now search Thirdparties And Populate By Email " + authorEmail);
@@ -162,7 +174,7 @@ import {searchPhonesInString} from "../global.lib.js";
 
         // console.log(message);
 
-        if(soc.id == 0){
+        if(soc.id == 0 || soc.id == '' || soc.id == null){
             displayTpl("soc-not-found-tpl");
 
             let newSocieteLink= document.getElementById("new-soc-link");
@@ -257,7 +269,7 @@ import {searchPhonesInString} from "../global.lib.js";
                     html: '<a href="'+ confDolibarUrl + 'comm/propal/card.php?id=' + propal.id+'" >' + propal.ref + '</a>'
                 };
 
-                if(propal.ref_client.length > 0){
+                if(typeof propal.ref_client != undefined &&  propal.ref_client.length > 0){
                     item.refClient = {
                         html: propal.ref_client
                     };
@@ -268,13 +280,21 @@ import {searchPhonesInString} from "../global.lib.js";
                     html: dateP.toLocaleDateString()
                 };
 
+                let formatedNumber = '';
+                try {
+                    formatedNumber = new Intl.NumberFormat([], {
+                        style: 'currency',
+                        currency: propal.multicurrency_code
+                    }).format(parseFloat(propal.total_ht))
+                } catch (error) {
+                    formatedNumber = parseFloat(propal.total_ht);
+                }
+    
                 item.total_ht = {
-                    html: new Intl.NumberFormat([], {
-                            style: 'currency',
-                            currency: propal.multicurrency_code
-                        }).format(parseFloat(propal.total_ht)),
+                    html: formatedNumber,
                     class: 'text-right'
                 };
+
                 tableItems.push(item);
             });
 
@@ -333,7 +353,7 @@ import {searchPhonesInString} from "../global.lib.js";
                     html: '<a href="'+ confDolibarUrl + 'commande/card.php?id=' + order.id+'" >' + order.ref + '</a>'
                 };
 
-                if(order.ref_client.length > 0){
+                if(typeof order.ref_client != undefined &&  order.ref_client.length > 0){
                     item.refClient = {
                         html:  order.ref_client
                     };
@@ -344,13 +364,21 @@ import {searchPhonesInString} from "../global.lib.js";
                     html: dateP.toLocaleDateString()
                 };
 
-                item.total_ht = {
-                    html: new Intl.NumberFormat([], {
+                let formatedNumber = '';
+                try {
+                    formatedNumber = new Intl.NumberFormat([], {
                         style: 'currency',
                         currency: order.multicurrency_code
-                    }).format(parseFloat(order.total_ht)),
+                    }).format(parseFloat(order.total_ht))
+                } catch (error) {
+                    formatedNumber = parseFloat(order.total_ht);
+                }
+
+                item.total_ht = {
+                    html: formatedNumber,
                     class: 'text-right'
                 };
+
                 tableItems.push(item);
             });
 
@@ -409,7 +437,8 @@ function setInvoicesInfos(confData){
                 html: '<a href="'+ confDolibarUrl + 'compta/facture/card.php?id=' + invoice.id+'" >' + invoice.ref + '</a>'
             };
 
-            if(invoice.ref_client.length > 0){
+            
+            if(typeof invoice.ref_client != undefined && invoice.ref_client.length > 0){
                 item.refClient = {
                     html: invoice.ref_client
                 };
@@ -420,13 +449,21 @@ function setInvoicesInfos(confData){
                 html: dateP.toLocaleDateString()
             };
 
-            item.total_ht = {
-                html: new Intl.NumberFormat([], {
+            let formatedNumber = '';
+            try {
+                formatedNumber = new Intl.NumberFormat([], {
                     style: 'currency',
                     currency: invoice.multicurrency_code
-                }).format(parseFloat(invoice.total_ht)),
+                }).format(parseFloat(invoice.total_ht))
+            } catch (error) {
+                formatedNumber = parseFloat(invoice.total_ht);
+            }
+
+            item.total_ht = {
+                html: formatedNumber,
                 class: 'text-right'
             };
+            
             tableItems.push(item);
         });
 
