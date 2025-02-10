@@ -269,7 +269,7 @@ import {searchPhonesInString} from "../global.lib.js";
                     html: '<a href="'+ confDolibarUrl + 'comm/propal/card.php?id=' + propal.id+'" >' + propal.ref + '</a>'
                 };
 
-                if(typeof propal.ref_client != undefined &&  propal.ref_client.length > 0){
+                if(typeof propal.ref_client != undefined && propal.ref_client != null &&  propal.ref_client.length > 0){
                     item.refClient = {
                         html: propal.ref_client
                     };
@@ -353,7 +353,7 @@ import {searchPhonesInString} from "../global.lib.js";
                     html: '<a href="'+ confDolibarUrl + 'commande/card.php?id=' + order.id+'" >' + order.ref + '</a>'
                 };
 
-                if(typeof order.ref_client != undefined &&  order.ref_client.length > 0){
+                if(typeof order.ref_client != undefined && order.ref_client != null && order.ref_client.length > 0){
                     item.refClient = {
                         html:  order.ref_client
                     };
@@ -438,7 +438,7 @@ function setInvoicesInfos(confData){
             };
 
             
-            if(typeof invoice.ref_client != undefined && invoice.ref_client.length > 0){
+            if(typeof invoice.ref_client != undefined  && invoice.ref_client != null && invoice.ref_client.length > 0){
                 item.refClient = {
                     html: invoice.ref_client
                 };
@@ -485,6 +485,88 @@ function setInvoicesInfos(confData){
 
 }
 
+/**
+ * display Supplierorders history
+ * @param object confData
+ */
+function setSupplierordersInfos(confData){
+    let conf = Object.assign({
+        socId: 0
+    }, confData);
+
+    // Get contact infos
+    return dolLib.callDolibarrApi('supplierorders', {
+        sortfield: 't.rowid',
+        sortorder: 'DESC',
+        limit:5,
+        thirdparty_ids: conf.socId
+    }, 'GET', {}, (dataLastSupplierorders)=>{
+
+        if(!Array.isArray(dataLastSupplierorders) || dataLastSupplierorders.length == 0){
+            // No contact found in database
+            return;
+        }
+
+        let tableItems = [];
+        dataLastSupplierorders.forEach((supplierorder) => {
+
+            let item = {
+                'ref': '',
+                'refFourn': '',//todo translate
+                'date': '',
+                'total_ht': ''
+            }
+
+            item.ref = {
+                html: '<a href="'+ confDolibarUrl + 'fourn/commande/card.php?id=' + supplierorder.id+'" >' + supplierorder.ref + '</a>'
+            };
+
+            if(typeof supplierorder.ref_supplier != undefined && supplierorder.ref_supplier != null && supplierorder.ref_supplier.length > 0){
+                item.refFourn= {
+                    html: supplierorder.ref_supplier
+                };
+            }
+
+            let dateP = new Date(parseInt(supplierorder.date) * 1000);
+            item.date = {
+                html: dateP.toLocaleDateString()
+            };
+
+
+            let formatedNumber = '';
+            try {
+                formatedNumber = new Intl.NumberFormat([], {
+                    style: 'currency',
+                    currency: supplierorder.multicurrency_code
+                }).format(parseFloat(supplierorder.total_ht))
+            } catch (error) {
+                formatedNumber = parseFloat(supplierorder.total_ht);
+            }
+
+            item.total_ht = {
+                html: formatedNumber,
+                class: 'text-right'
+            };
+            tableItems.push(item);
+        });
+
+        dolLib.jsonToTable(
+            {
+                'ref': chrome.i18n.getMessage('Ref'),
+                'refClient': chrome.i18n.getMessage('RefClient'),
+                'date': chrome.i18n.getMessage('Date'),
+                'total_ht': chrome.i18n.getMessage('Total')
+            },
+            tableItems,
+            document.getElementById("data-from-dolibarr")
+        );
+
+
+    },(errorMsg)=>{
+        console.error("setQuotationsInfos" + errorMsg);
+    });
+
+}
 
 function displayTpl(id){
     let tpl = document.getElementById(id);
@@ -499,4 +581,5 @@ function loadDocumentsInfos(data){
     setQuotationsInfos(data);
     setOrdersInfos(data);
     setInvoicesInfos(data);
+    setSupplierordersInfos(data);
 }

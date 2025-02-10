@@ -32,6 +32,9 @@
   "CheckYourModuleConfig": {
     "message": "Configuration incomplete : Vérifiez votre configuration module"
   },
+  "refFourn": {
+    "message": "Ref Fournisseur"
+  },
   "Date": {
     "message": "Date"
   },
