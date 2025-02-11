@@ -182,7 +182,7 @@ import {searchPhonesInString} from "../global.lib.js";
 
             // societe not found
             soc.name = message.author.replace(authorEmail,'');
-            soc.name = soc.name.replace(/[^a-zA-Z0-9 ]/g, '');
+            soc.name = soc.name.replace(/[^a-zA-Z0-9áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ ]/g, '');
             soc.name = soc.name.trim();
 
             // let phones = dolLib.searchPhonesInString(messageBody.html, true);
