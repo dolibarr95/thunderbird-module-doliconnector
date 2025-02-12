@@ -1,6 +1,6 @@
 # Dolibarr connector 
 
-## Extension Thunderbird pour intégrer Dolibarr
+## A Dolibarr add-on for Thunderbird
 
 This module need configuration to work 
 
