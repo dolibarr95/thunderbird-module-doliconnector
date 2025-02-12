@@ -4,7 +4,8 @@
 
 This module need configuration to work 
 
-[See Thunderbird addons page](https://addons.thunderbird.net/fr/thunderbird/addon/dolibarr-connector/)
+- [Thersane Add-on page](https://www.thersane.fr/content/60-plugin-thunderbird-pour-dolibarr)
+- [See Thunderbird addons page](https://addons.thunderbird.net/fr/thunderbird/addon/dolibarr-connector/)
 
 # How to build package xpi
 On linux run command `buildXpi.sh`
