@@ -1,5 +1,3 @@
-import * as DOMPurify from './vendors/DOMPurify/purify.min.js';
-
 export async function checkConfig(){
 
     let configData = await browser.storage.local.get({dolibarrApiKey:'', dolibarrApiUrl:''});
@@ -130,7 +128,10 @@ function replace_i18n(obj, tag) {
         return v1 ? chrome.i18n.getMessage(v1) : '';
     });
 
-    if(msg != tag) obj.innerHTML = msg;
+    if(msg != tag) {
+        obj.innerHTML = msg;
+        //obj.appendChild(parseHTML(msg));
+    }
 }
 
 export function localizeHtmlPage() {
@@ -150,7 +151,6 @@ export function localizeHtmlPage() {
     for (var j = 0; j < page.length; j++) {
         var obj = page[j];
         var tag = obj.innerHTML.toString();
-
         replace_i18n(obj, tag);
     }
 }
@@ -181,11 +181,21 @@ export function parseName(fullName) {
     return person
 }
 
+
+/**
+ * //stringToEl('<li>text</li>'); //OUTPUT: <li>text</li>
+ * @param {*} html 
+ * @returns 
+ */
 export function parseHTML(html) {
-    var t = document.createElement('template');
-    t.innerHTML = html;//DOMPurify.sanitize(html);
-    return t;
+    var parser = new DOMParser(),
+        content = 'text/html',
+        DOM = parser.parseFromString(html, content);
+
+    // return element
+    return DOM.body.childNodes[0];
 }
+
 
 /**
  *
@@ -351,7 +361,7 @@ export function jsonToTable(JsonTitle, jsonData, container, tableClass = 'doliba
             let td = document.createElement("td");
 
             if(typeof elem === 'object' && elem !== null){
-                td.innerHTML = elem.html; //DOMPurify.sanitize(elem.html); // Set the value as the text of the table cell
+                td.appendChild(parseHTML(elem.html));
 
                 if(Object.hasOwn(elem, 'class') ){
                     td.classList.add(...elem.class.split(" "));
