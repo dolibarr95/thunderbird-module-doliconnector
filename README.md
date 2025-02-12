@@ -8,3 +8,6 @@ This module need configuration to work
 
 # How to build package xpi
 On linux run command `buildXpi.sh`
+
+## Contribute
+see this start doc : [How to create hello world addon](https://developer.thunderbird.net/add-ons/hello-world-add-on)
