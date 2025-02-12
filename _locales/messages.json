@@ -1,0 +1,48 @@
+{
+  "extensionName": {
+    "message": "Dolibarr connector"
+  },
+  "extensionDescription": {
+    "message": "Thunderbird extension to integrate Dolibarr"
+  },
+  "Save": {
+    "message": "Save"
+  },
+  "dolibarrApiKey": {
+    "message": "REST API key"
+  },
+  "dolibarrUrl": {
+    "message": "Dolibarr Url "
+  },
+  "CreateNewCompany": {
+    "message": "Create a new third party"
+  },
+  "CreateNewContact": {
+    "message": "Create a new contact"
+  },
+  "FicheDolibarr": {
+    "message": "Show thirdparty"
+  },
+  "Ref": {
+    "message": "Ref"
+  },
+  "RefClient": {
+    "message": "Client Ref"
+  },
+  "CheckYourModuleConfig": {
+    "message": "Configuration incomplete : Check your module configuration"
+  },
+  "refFourn": {
+	"message": "Vendor Ref"
+  },
+  "Date": {
+    "message": "Date"
+  },
+  "Total": {
+    "message": "Total"
+  },
+  "options.options": {
+    "message": "Options",
+    "description": "Options"
+  }
+}
