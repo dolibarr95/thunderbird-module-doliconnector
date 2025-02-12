@@ -14,6 +14,9 @@
   "dolibarrUrl": {
     "message": "Url Dolibarr"
   },
+  "dolibarrDraftCancel": {
+    "message": "Ne pas afficher les objets brouillons et annulés"
+  },
   "CreateNewCompany": {
     "message": "Créer un nouveau tiers"
   },
