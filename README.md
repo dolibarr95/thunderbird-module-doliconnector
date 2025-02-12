@@ -9,7 +9,7 @@ This module need configuration to work
 
 # How to build package xpi
 ## On linux 
-run command or execute as a program
+run command or execute as a program (need zip command ```sudo apt install zip```)
 ```bash
 buildXpi.sh
 ```
