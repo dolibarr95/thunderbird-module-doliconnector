@@ -114,7 +114,8 @@ import {searchPhonesInString} from "../global.lib.js";
             "club-internet.fr", "gmx.fr", "aliceadsl.fr", "me.com",
             "numericable.fr", "nordnet.fr", "protonmail.com",
             "ymail.com", "hotmail.be", "9online.fr","live.be",
-            "libertysurf.fr", "live.com", "skynet.be", "gmail.fr", "aol.fr"
+            "libertysurf.fr", "live.com", "skynet.be", "gmail.fr", "aol.fr",
+            "tiscali.it", "libero.it"
 
         ]
 
