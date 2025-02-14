@@ -11,6 +11,9 @@
   "dolibarrApiKey": {
     "message": "REST API key"
   },
+  "dolibarrDraftCancel": {
+	      "message": "Hide drafts and cancelled objects"
+  },
   "dolibarrUrl": {
     "message": "Dolibarr Url "
   },
