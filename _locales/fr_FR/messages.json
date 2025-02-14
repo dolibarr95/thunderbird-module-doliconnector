@@ -11,6 +11,9 @@
   "dolibarrApiKey": {
     "message": "Clé API REST"
   },
+  "dolibarrDraftCancel": {
+	      "message": "Masquer les brouillons et annulés"
+  },
   "dolibarrUrl": {
     "message": "Url Dolibarr"
   },

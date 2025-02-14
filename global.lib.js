@@ -78,6 +78,13 @@ export async function callDolibarrApi(endPoint, getDataParam, type = 'GET', post
     return xhttp;
 }
 
+export async function filterDraftCancel(){
+  //filtre sur les objetx brouillons et annulés
+  let configData = await browser.storage.local.get({dolibarrDraftCancel:''});
+  let draftCancel= configData.dolibarrDraftCancel;
+  if(draftCancel != true){draftCancel = false;}
+  return draftCancel;
+}
 
 export function extractEmailAddressFromString(text){
     // Expression régulière pour rechercher les adresses e-mail
